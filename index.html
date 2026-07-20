@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-scalable="no">
+
+    <title>DASHBOARD SELIS BANG AJI</title>
+    
+    <meta name="theme-color" content="#451a03">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <style>
+        body { 
+            font-family: 'Inter', 'Arial', sans-serif; 
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); 
+            padding: 15px; margin: 0; text-align: center; 
+            min-height: 100vh; display: flex; flex-direction: column; 
+            box-sizing: border-box; color: #451a03;
+        }
+
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #451a03; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 0.8s ease-out, visibility 0.8s; color: #fef3c7;
+        }
+        .bismillah { font-size: clamp(18px, 6.5vw, 28px); font-family: 'Traditional Arabic', 'Amiri', serif; margin-bottom: 25px; color: #fcd34d; white-space: nowrap; }
+        .splash-text-main { font-size: 32px; font-weight: 900; letter-spacing: 2px; margin-bottom: 8px; }
+
+        .logo-container { margin-top: 15px; margin-bottom: 20px; }
+        .brand-title { font-size: 30px; font-weight: 900; color: #7f1d1d; letter-spacing: 1px; margin-bottom: 4px; }
+        .brand-subtitle { font-size: 11px; color: #92400e; letter-spacing: 2px; font-weight: bold; text-transform: uppercase; }
+
+        /* LIVE KOMANDO OMZET (LANGSUNG DI LAYAR UTAMA) */
+        .live-omzet-section {
+            background: #451a03; color: white; border-radius: 18px; padding: 15px;
+            width: 100%; max-width: 400px; margin: 0 auto 25px auto; text-align: left;
+            box-shadow: 0 10px 25px rgba(69, 26, 3, 0.15); box-sizing: border-box;
+        }
+        .live-title { font-size: 11px; color: #fbbf24; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; text-align: center; border-bottom: 1px solid #78350f; padding-bottom: 8px; margin-bottom: 12px; }
+        .live-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .live-row:last-child { margin-bottom: 0; margin-top: 12px; border-top: 1px dashed #78350f; padding-top: 12px; }
+        .live-label { font-size: 13px; color: #fde68a; font-weight: bold; }
+        .live-value { font-size: 17px; font-weight: 900; color: white; }
+        .live-value-grand { font-size: 24px; font-weight: 900; color: #34d399; }
+        .loading-text { font-style: italic; color: #fcd34d; font-size: 12px; animation: blinker 1s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0.5; } }
+
+        /* MENU UTAMA HANYA DAFTAR CABANG */
+        .menu-container { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 400px; margin: 0 auto; }
+        .card-menu { 
+            background: white; border: 1px solid #fde68a; padding: 16px; border-radius: 16px; 
+            display: flex; align-items: center; box-shadow: 0 4px 15px rgba(127, 29, 29, 0.04); 
+            cursor: pointer; transition: transform 0.2s; color: #451a03;
+        }
+        .card-menu:active { transform: scale(0.98); }
+        .icon-box { background: #fffbeb; border: 1px solid #fde68a; color: #b45309; width: 48px; height: 58px; display: flex; justify-content: center; align-items: center; border-radius: 12px; font-size: 24px; margin-right: 15px; font-weight: bold; }
+        .menu-text { text-align: left; flex-grow: 1; }
+        .menu-title { font-size: 17px; font-weight: 900; color: #7f1d1d; letter-spacing: 0.5px; margin-bottom: 3px; }
+        .menu-subtitle { font-size: 12px; color: #b45309; font-weight: bold; }
+
+        /* POPUP MODAL PILIHAN INTERNAL CABANG */
+        .popup-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; justify-content: center; align-items: center; z-index: 1000; background: rgba(69, 26, 3, 0.85); padding: 20px; box-sizing: border-box; backdrop-filter: blur(5px); }
+        .popup-modal.show { display: flex; }
+        .box-popup { background: white; padding: 22px; border-radius: 24px; width: 100%; max-width: 400px; text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .popup-header { font-size: 18px; font-weight: 900; color: #7f1d1d; border-bottom: 2px dashed #fde68a; padding-bottom: 12px; margin-top: 0; margin-bottom: 20px; text-align: center; text-transform: uppercase; }
+        
+        .btn-link { display: block; width: 100%; padding: 16px; margin-bottom: 12px; text-decoration: none; text-align: center; border-radius: 14px; font-weight: 900; font-size: 15px; box-sizing: border-box; cursor: pointer; }
+        .btn-kasir { background: #7f1d1d; color: white; }
+        .btn-kasir:active { background: #451a03; }
+        .btn-sheet { background: #fffbeb; color: #b45309; border: 2px solid #fde68a; }
+        .btn-sheet:active { background: #fef3c7; }
+        .btn-tutup { background: #dc2626; color: white; border: none; margin-top: 10px; }
+        .btn-tutup:active { background: #b91c1c; }
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="bismillah">&#1576;&#1616;&#1587;&#1618;&#1605;&#1616; &#1575;&#1604;&#1604;&#1617;&#1648;&#1607;&#1616; &#1575;&#1604;&#1585;&#1617;&#1614;&#1581;&#1618;&#1605;&#1648;&#1606;&#1616; &#1575;&#1604;&#1585;&#1617;&#1614;&#1581;&#1616;&#1610;&#1605;&#1616;</div>
+        <div class="splash-text-main">SELIS BANG AJI</div>
+    </div>
+
+    <div class="logo-container">
+        <div class="brand-title">SELIS BANG AJI</div>
+        <div class="brand-subtitle">Pusat Komando Live</div>
+    </div>
+
+    <div class="live-omzet-section">
+        <div class="live-title">&#128202; LIVE OMZET GABUNGAN</div>
+        <div class="live-row">
+            <span class="live-label">Total Hari Ini:</span>
+            <span class="live-value" id="grand-harian"><span class="loading-text">Menghitung...</span></span>
+        </div>
+        <div class="live-row">
+            <span class="live-label">Total Pekan Ini:</span>
+            <span class="live-value" id="grand-pekan"><span class="loading-text">Menghitung...</span></span>
+        </div>
+        <div class="live-row">
+            <span class="live-label">Total Bulan Ini:</span>
+            <span class="live-value-grand" id="grand-bulan"><span class="loading-text">Menghitung...</span></span>
+        </div>
+    </div>
+
+    <div class="menu-container">
+        <div class="card-menu" onclick="bukaModal('modal-pondok')">
+            <div class="icon-box">01</div>
+            <div class="menu-text">
+                <div class="menu-title">PONDOK KOPI</div>
+                <div class="menu-subtitle">Aplikasi Kasir & Database Sheet &#10140;</div>
+            </div>
+        </div>
+
+        <div class="card-menu" onclick="bukaModal('modal-farras')">
+            <div class="icon-box">02</div>
+            <div class="menu-text">
+                <div class="menu-title">FARRASAZZAM</div>
+                <div class="menu-subtitle">Aplikasi Kasir & Database Sheet &#10140;</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-pondok" class="popup-modal">
+        <div class="box-popup">
+            <h2 class="popup-header">&#128205; PONDOK KOPI</h2>
+            <a href="pondokkopi/" class="btn-link btn-kasir">&#128690; BUKA APLIKASI KASIR</a>
+            <a href="https://docs.google.com/spreadsheets/d/19iaQO2P23ie7X0TNywB8m6u1rTtlrc6QFz7_s6yEJEM/edit?usp=sharing" target="_blank" class="btn-link btn-sheet">&#128195; MONITOR GOOGLE SHEET</a>
+            <button class="btn-link btn-tutup" onclick="tutupModal('modal-pondok')">KEMBALI</button>
+        </div>
+    </div>
+
+    <div id="modal-farras" class="popup-modal">
+        <div class="box-popup">
+            <h2 class="popup-header">&#128205; FARRASAZZAM</h2>
+            <a href="kampungsumur/" class="btn-link btn-kasir">&#128690; BUKA APLIKASI KASIR</a>
+            <a href="https://docs.google.com/spreadsheets/d/12UhVfRDmT1eocoZNPPdyHlTzre-wfUd5mFs4t732rtw/edit?usp=sharing" target="_blank" class="btn-link btn-sheet">&#128195; MONITOR GOOGLE SHEET</a>
+            <button class="btn-link btn-tutup" onclick="tutupModal('modal-farras')">KEMBALI</button>
+        </div>
+    </div>
+
+    <script>
+        // Splash Screen hilang otomatis
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(function() { splash.style.visibility = 'hidden'; }, 800);
+            }, 1500);
+            // Otomatis tarik data omzet gabungan saat halaman terbuka
+            tarikOmzetPusat();
+        });
+
+        function bukaModal(id) { document.getElementById(id).classList.add('show'); }
+        function tutupModal(id) { document.getElementById(id).classList.remove('show'); }
+
+        const scriptPondokKopi = "https://script.google.com/macros/s/AKfycbxvQlCekBLmYw7-TiQPqgvUjYv_h9D0bRc1z7zUGnM0BCyMS8GFQTt-d9dDu-6QCiIBMw/exec";
+        const scriptFarrasazzam = "https://script.google.com/macros/s/AKfycbwOuip3sFKANwVlbawnZuDrw-MmWiJrkkqs9H3k2CAceBf55Nz-grDBitxELj7jRzbS8A/exec";
+
+        function formatRp(angka) { return "Rp " + parseInt(angka).toLocaleString('id-ID'); }
+
+        async function tarikOmzetPusat() {
+            let totalHarian = 0; let totalPekanan = 0; let totalBulanan = 0;
+
+            // Jalankan parallel fetch biar kencang dan tidak lemot
+            try {
+                const [resPondok, resFarras] = await Promise.all([
+                    fetch(scriptPondokKopi + "?action=ambilData&v=" + new Date().getTime()).then(r => r.json()).catch(() => null),
+                    fetch(scriptFarrasazzam + "?action=ambilData&v=" + new Date().getTime()).then(r => r.json()).catch(() => null)
+                ]);
+
+                if (resPondok) {
+                    totalHarian += resPondok.total || 0;
+                    totalPekanan += resPondok.totalPekan || 0;
+                    totalBulanan += resPondok.totalBulan || 0;
+                }
+                if (resFarras) {
+                    totalHarian += resFarras.total || 0;
+                    totalPekanan += resFarras.totalPekan || 0;
+                    totalBulanan += resFarras.totalBulan || 0;
+                }
+
+                document.getElementById('grand-harian').innerText = formatRp(totalHarian);
+                document.getElementById('grand-pekan').innerText = formatRp(totalPekanan);
+                document.getElementById('grand-bulan').innerText = formatRp(totalBulanan);
+
+            } catch (error) {
+                document.getElementById('grand-harian').innerText = "Gagal memuat";
+                document.getElementById('grand-pekan').innerText = "Gagal memuat";
+                document.getElementById('grand-bulan').innerText = "Gagal memuat";
+            }
+        }
+    </script>
+</body>
+</html>
