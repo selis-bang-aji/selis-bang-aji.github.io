@@ -103,18 +103,13 @@
         // LINK SCRIPT FARRASAZZAM
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwOuip3sFKANwVlbawnZuDrw-MmWiJrkkqs9H3k2CAceBf55Nz-grDBitxELj7jRzbS8A/exec';
         
-        // 10 UNIT FARRASAZZAM
+        // DAFTAR UNIT AKTIF FARRASAZZAM
         const units = [
-            {id:"BU759", l:"https://rentals.ridebeam.com/solo/1e0d51cc-54c4-4b8e-be29-8948fb2ef4b9"},
-            {id:"BR136", l:"https://rentals.ridebeam.com/solo/ca30fc09-8a5c-4f3c-bb34-a8311515cb8b"},
-            {id:"BT689", l:"https://rentals.ridebeam.com/solo/7ce1be38-8d96-4914-984e-1ea9777f24e9"},
-            {id:"BS222", l:"https://rentals.ridebeam.com/solo/92d1afec-0f6e-456e-b8d8-8c0d4bef7615"},
-            {id:"BQ717", l:"https://rentals.ridebeam.com/solo/11a13f7f-a16d-4bbe-aa49-49bf1a2353b0"},
-            {id:"BU248", l:"https://rentals.ridebeam.com/solo/ffb4363f-119b-43ed-b35e-1fe978cea0c8"},
-            {id:"BQ150", l:"https://rentals.ridebeam.com/solo/c36b4b9e-4fe5-4580-a135-c64018c97acd"},
-            {id:"BT722", l:"https://rentals.ridebeam.com/solo/d5d286fe-acbc-4cb5-9cd3-c0fcde2639ec"},
-            {id:"BR567", l:"https://rentals.ridebeam.com/solo/7e3b80ac-55b8-4400-a74d-c6a244e01f55"},
-            {id:"BS917", l:"https://rentals.ridebeam.com/solo/8c7f8651-a2d2-4bc7-b496-6101f8ef0331"}
+            {no: 1, id:"BU759", l:"https://rentals.ridebeam.com/solo/087335a7-d34f-49d1-bc3c-ffd3a73b3ccf"},
+            {no: 2, id:"BR136", l:"https://rentals.ridebeam.com/solo/2bb2e8b6-a3d6-4835-aa1c-7d8f85ac8b71"},
+            {no: 5, id:"BQ717", l:"https://rentals.ridebeam.com/solo/11a13f7f-a16d-4bbe-aa49-49bf1a2353b0"},
+            {no: 6, id:"BU248", l:"https://rentals.ridebeam.com/solo/ffb4363f-119b-43ed-b35e-1fe978cea0c8"},
+            {no: 9, id:"BR567", l:"https://rentals.ridebeam.com/solo/7e3b80ac-55b8-4400-a74d-c6a244e01f55"}
         ];
 
         let dataBusy = {}; let dataSewaSementara = {}; let tkId = "";
@@ -145,7 +140,7 @@
             c.innerHTML += `
             <div class="card">
                 <div class="unit-header">
-                    <div class="unit-title">UNIT ${i+1}<br><span class="unit-id-text">${u.id}</span></div>
+                    <div class="unit-title">UNIT ${u.no}<br><span class="unit-id-text">${u.id}</span></div>
                     <div class="btn-actions">
                         <button class="btn-power" onclick="window.open('${u.l}','_blank')">⚡ POWER</button>
                         <button class="btn-teknis" onclick="tkId='${u.id}';document.getElementById('mt-unit').innerText='${u.id}';document.getElementById('popup-teknis').style.display='flex'">⚙️</button>
@@ -198,7 +193,7 @@
 
                         ovl.innerHTML = `
                             <div style="color:${textColor}; width:100%; display:flex; flex-direction:column; align-items:center;">
-                                <b style="font-size:16px;">UNIT ${i+1} (${u.id})</b><br><span style="font-weight:900;">${info.nama}</span><br>
+                                <b style="font-size:16px;">UNIT ${u.no} (${u.id})</b><br><span style="font-weight:900;">${info.nama}</span><br>
                                 <button onclick="stopTeknis('${u.id}')" style="background:${textColor}; color:white; border:none; padding:12px 30px; border-radius:12px; font-weight:900; cursor:pointer; width:85%; margin-top:10px;">✅ SELESAI</button>
                             </div>`;
                     } else {
